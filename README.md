@@ -24,20 +24,20 @@ flowchart TB
         JS["script.js<br/>ロジック"]
     end
 
-    subgraph Hosting["🌐 ホスティング"]
+    subgraph Hosting["ホスティング"]
         GHP["GitHub Pages<br/>/ Vercel / Netlify"]
     end
 
-    subgraph GAS["⚡ Google Apps Script"]
+    subgraph GAS["Google Apps Script"]
         doGet["doGet()<br/>生徒名一覧取得"]
         doPost["doPost()<br/>データ記録"]
     end
 
-    subgraph Spreadsheet["📊 Google Spreadsheet"]
+    subgraph Spreadsheet["Google Spreadsheet"]
         MainSheet["メインシート<br/>・生徒情報 (A-H列)<br/>・モチベ値 (I-T列)<br/>・記述 (U-AF列)"]
     end
 
-    subgraph User["👤 ユーザー"]
+    subgraph User["ユーザー"]
         Student["生徒<br/>(スマホ/PC)"]
     end
 
@@ -115,3 +115,4 @@ flowchart TB
 ## ライセンス
 
 Copyright © 2025-2026 鈴木絵美理 All Rights Reserved.
+
