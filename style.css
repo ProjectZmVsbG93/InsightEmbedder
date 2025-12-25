@@ -1,0 +1,500 @@
+/* 
+ * 学習モチベーション調査 - スタイルシート
+ * ベースCSS: Zen Kaku Gothic New + Noto Serif JP
+ */
+
+/* ============================================
+   リセット・ベース
+   ============================================ */
+*,
+:before,
+:after {
+  box-sizing: inherit;
+  margin: 0;
+  background-repeat: no-repeat;
+  font-weight: inherit;
+  font-size: 1em;
+  font-family: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  overflow-y: scroll;
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1.5;
+  font-size: 62.5%;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fff;
+  color: #191919;
+  font-weight: 400;
+  font-size: 1.6rem;
+  font-family: 'Zen Kaku Gothic New', serif;
+  font-feature-settings: "palt";
+  letter-spacing: .05em;
+  line-break: strict;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  transition-duration: .3s;
+  transition-property: color, border-color, background-color, opacity;
+  transition-timing-function: ease-in-out;
+  color: #0d2850;
+  text-decoration: none;
+}
+
+a:hover {
+  outline: 0;
+  color: #0d2850;
+  text-decoration: underline;
+}
+
+/* ============================================
+   ヘッダー
+   ============================================ */
+.page-header {
+  display: flex;
+  z-index: 100;
+  position: sticky;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1.6rem 2.4rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #0d2850;
+  transition: background-color .4s, box-shadow .4s;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 .2rem .8rem rgba(0, 0, 0, 0.1);
+}
+
+.logo-main {
+  display: flex;
+  position: relative;
+  align-items: center;
+  gap: .8rem;
+  font-size: 2rem;
+  font-family: "Noto Serif JP", serif;
+}
+
+.logo-main span {
+  display: block;
+  letter-spacing: .08em;
+}
+
+/* ============================================
+   メインコンテンツ
+   ============================================ */
+.page-main {
+  flex: 1;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2.4rem;
+}
+
+.main-header {
+  display: flex;
+  position: relative;
+  padding: 4rem 0;
+  background-color: #0d2850;
+  margin: 0 -2.4rem 4rem;
+  padding-left: 2.4rem;
+  padding-right: 2.4rem;
+}
+
+.main-header__text {
+  color: #fff;
+  text-align: center;
+  width: 100%;
+}
+
+.main-header__text ._cat {
+  font-size: 1.4rem;
+  font-family: "Noto Serif JP", serif;
+  opacity: 0.8;
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+.main-header__text ._title {
+  font-size: 2.8rem;
+  font-family: "Noto Serif JP", serif;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* ============================================
+   フォームセクション
+   ============================================ */
+.form-section {
+  padding-bottom: 6.4rem;
+}
+
+.form-container {
+  background-color: #f8f9fa;
+  padding: 3.2rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 0.2rem 1.6rem rgba(13, 40, 80, 0.08);
+}
+
+.form-group {
+  margin-bottom: 3.2rem;
+}
+
+.form-group:last-of-type {
+  margin-bottom: 4rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #0d2850;
+  margin-bottom: 0.8rem;
+  font-family: "Noto Serif JP", serif;
+}
+
+.form-hint {
+  font-size: 1.4rem;
+  color: #666;
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
+}
+
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 1.2rem 1.6rem;
+  border: 1px solid #ccd4dc;
+  border-radius: 0.4rem;
+  background-color: #fff;
+  font-size: 1.6rem;
+  font-family: 'Zen Kaku Gothic New', serif;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #0d2850;
+  box-shadow: 0 0 0 3px rgba(13, 40, 80, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 12rem;
+  line-height: 1.8;
+}
+
+/* ============================================
+   モチベーション選択
+   ============================================ */
+.motivation-selector {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.motivation-selector input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.motivation-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 8rem;
+  height: 8rem;
+  border: 2px solid #ccd4dc;
+  border-radius: 0.8rem;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.motivation-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.motivation-value {
+  font-size: 2.4rem;
+  font-weight: 700;
+  font-family: "Noto Serif JP", serif;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.motivation-label {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.2;
+}
+
+/* モチベーション色分け */
+.motivation--negative-2 {
+  border-color: #e57373;
+}
+
+.motivation--negative-2 .motivation-value {
+  color: #c62828;
+}
+
+.motivation--negative-1 {
+  border-color: #ffb74d;
+}
+
+.motivation--negative-1 .motivation-value {
+  color: #ef6c00;
+}
+
+.motivation--neutral {
+  border-color: #90a4ae;
+}
+
+.motivation--neutral .motivation-value {
+  color: #546e7a;
+}
+
+.motivation--positive-1 {
+  border-color: #81c784;
+}
+
+.motivation--positive-1 .motivation-value {
+  color: #2e7d32;
+}
+
+.motivation--positive-2 {
+  border-color: #64b5f6;
+}
+
+.motivation--positive-2 .motivation-value {
+  color: #1565c0;
+}
+
+/* 選択状態 */
+.motivation-selector input[type="radio"]:checked+.motivation-option {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.motivation-selector input[type="radio"]:checked+.motivation--negative-2 {
+  background-color: #ffebee;
+  border-color: #c62828;
+}
+
+.motivation-selector input[type="radio"]:checked+.motivation--negative-1 {
+  background-color: #fff3e0;
+  border-color: #ef6c00;
+}
+
+.motivation-selector input[type="radio"]:checked+.motivation--neutral {
+  background-color: #eceff1;
+  border-color: #546e7a;
+}
+
+.motivation-selector input[type="radio"]:checked+.motivation--positive-1 {
+  background-color: #e8f5e9;
+  border-color: #2e7d32;
+}
+
+.motivation-selector input[type="radio"]:checked+.motivation--positive-2 {
+  background-color: #e3f2fd;
+  border-color: #1565c0;
+}
+
+/* ============================================
+   ボタン
+   ============================================ */
+.form-actions {
+  text-align: center;
+}
+
+.btn {
+  display: inline-block;
+  z-index: 0;
+  position: relative;
+  min-width: 24rem;
+  max-width: 100%;
+  padding: 1.4em 3em;
+  border: none;
+  background-color: #0d2850;
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1.36;
+  font-family: "Noto Serif JP", serif;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn:before {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  translate: .5rem .5rem;
+  border: 1px solid #0d2850;
+  content: "";
+  transition: translate 0.3s;
+}
+
+.btn:hover {
+  background-color: #0c2448;
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn:hover:before {
+  translate: .3rem .3rem;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* ============================================
+   結果メッセージ
+   ============================================ */
+.result-message {
+  margin-top: 2.4rem;
+  padding: 2rem;
+  border-radius: 0.4rem;
+  text-align: center;
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.result-message.success {
+  background-color: #e8f5e9;
+  border: 1px solid #81c784;
+  color: #2e7d32;
+}
+
+.result-message.error {
+  background-color: #ffebee;
+  border: 1px solid #e57373;
+  color: #c62828;
+}
+
+/* ============================================
+   フッター
+   ============================================ */
+.page-footer-simple {
+  background-color: #feede0;
+  padding: 2.4rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+.copyright small {
+  font-size: 1.2rem;
+  color: #0d2850;
+}
+
+/* ============================================
+   レスポンシブ
+   ============================================ */
+@media screen and (max-width: 767px) {
+  html {
+    font-size: 2.5641025641vw;
+  }
+
+  body {
+    font-size: 1.5rem;
+  }
+
+  .page-header {
+    padding: 1.2rem 1.6rem;
+  }
+
+  .logo-main {
+    font-size: 1.6rem;
+  }
+
+  .page-main {
+    padding: 0 1.6rem;
+  }
+
+  .main-header {
+    margin: 0 -1.6rem 3.2rem;
+    padding: 3.2rem 1.6rem;
+  }
+
+  .main-header__text ._title {
+    font-size: 2.2rem;
+  }
+
+  .form-container {
+    padding: 2.4rem 1.6rem;
+  }
+
+  .form-group {
+    margin-bottom: 2.4rem;
+  }
+
+  .form-label {
+    font-size: 1.6rem;
+  }
+
+  .motivation-selector {
+    gap: 0.6rem;
+    flex-wrap: nowrap;
+  }
+
+  .motivation-option {
+    width: 5.6rem;
+    height: 5.6rem;
+  }
+
+  .motivation-value {
+    font-size: 1.8rem;
+  }
+
+  .motivation-label {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    min-width: 100%;
+    padding: 1.2em 2em;
+    font-size: 1.5rem;
+  }
+
+  .btn:before {
+    translate: .4rem .4rem;
+  }
+}

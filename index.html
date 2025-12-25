@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学習モチベーション調査</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="page-header">
+    <div class="logo-main">
+      <span>英語学習を振り返ってみよう</span>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="main-header">
+      <div class="main-header__text">
+        <span class="_cat">土浦日本大学中等教育学校</span>
+        <h1 class="_title">月次モチベーション記録</h1>
+      </div>
+    </div>
+
+    <section class="form-section">
+      <div class="form-container">
+        <form id="motivation-form">
+          <!-- 氏名選択 -->
+          <div class="form-group">
+            <label class="form-label" for="student-name">氏名</label>
+            <select id="student-name" class="form-select" required>
+              <option value="">読み込み中...</option>
+            </select>
+          </div>
+
+          <!-- 月選択 -->
+          <div class="form-group">
+            <label class="form-label" for="month">対象月</label>
+            <select id="month" class="form-select" required>
+              <option value="">月を選択してください</option>
+              <option value="4">4月</option>
+              <option value="5">5月</option>
+              <option value="6">6月</option>
+              <option value="7">7月</option>
+              <option value="8">8月</option>
+              <option value="9">9月</option>
+              <option value="10">10月</option>
+              <option value="11">11月</option>
+              <option value="12">12月</option>
+              <option value="1">1月</option>
+              <option value="2">2月</option>
+              <option value="3">3月</option>
+            </select>
+          </div>
+
+          <!-- モチベーション選択 -->
+          <div class="form-group">
+            <label class="form-label">モチベーション</label>
+            <p class="form-hint">英語学習に対する意欲を選択してください</p>
+            <div class="motivation-selector">
+              <input type="radio" name="motivation" id="motivation--2" value="-2" required>
+              <label for="motivation--2" class="motivation-option motivation--negative-2">
+                <span class="motivation-value">-2</span>
+                <span class="motivation-label">とても低い</span>
+              </label>
+
+              <input type="radio" name="motivation" id="motivation--1" value="-1">
+              <label for="motivation--1" class="motivation-option motivation--negative-1">
+                <span class="motivation-value">-1</span>
+                <span class="motivation-label">低い</span>
+              </label>
+
+              <input type="radio" name="motivation" id="motivation-0" value="0">
+              <label for="motivation-0" class="motivation-option motivation--neutral">
+                <span class="motivation-value">0</span>
+                <span class="motivation-label">普通</span>
+              </label>
+
+              <input type="radio" name="motivation" id="motivation-1" value="1">
+              <label for="motivation-1" class="motivation-option motivation--positive-1">
+                <span class="motivation-value">+1</span>
+                <span class="motivation-label">高い</span>
+              </label>
+
+              <input type="radio" name="motivation" id="motivation-2" value="2">
+              <label for="motivation-2" class="motivation-option motivation--positive-2">
+                <span class="motivation-value">+2</span>
+                <span class="motivation-label">とても高い</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 変動原因 -->
+          <div class="form-group">
+            <label class="form-label" for="reason">モチベーション変動の原因（任意）</label>
+            <p class="form-hint">この月にモチベーションが変わった理由があれば教えてください</p>
+            <textarea id="reason" class="form-textarea" rows="4" placeholder="例：テストの結果が良かった、部活が忙しくなった、など"></textarea>
+          </div>
+
+          <!-- 送信ボタン -->
+          <div class="form-actions">
+            <button type="submit" class="btn" id="submit-btn">
+              <span class="btn-text">回答を送信</span>
+              <span class="btn-loading" style="display: none;">送信中...</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- 結果表示 -->
+        <div id="result-message" class="result-message" style="display: none;"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer-simple">
+    <p class="copyright">
+      <small>Copyright&copy;2025-2026 鈴木絵美理 All Rights Reserved.</small>
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
