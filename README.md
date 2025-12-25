@@ -18,7 +18,7 @@
 
 ```mermaid
 flowchart TB
-    subgraph Frontend["📱 フロントエンド"]
+    subgraph Frontend["フロントエンド"]
         HTML["index.html<br/>フォームUI"]
         CSS["style.css<br/>スタイリング"]
         JS["script.js<br/>ロジック"]
@@ -115,4 +115,5 @@ flowchart TB
 ## ライセンス
 
 Copyright © 2025-2026 鈴木絵美理 All Rights Reserved.
+
 
