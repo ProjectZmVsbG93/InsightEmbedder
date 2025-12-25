@@ -1,18 +1,18 @@
 # 英語学習モチベーション調査システム
 
-土浦日本大学中等教育学校の生徒を対象とした、月次英語学習モチベーション調査のためのWebアプリケーションです。
+土浦日本大学中等教育学校の生徒を対象とした、月次英語学習モチベーション調査のためのWebアプリケーション。
 
 ## 概要
 
-生徒がスマートフォンやPCから簡単に回答でき、Google Spreadsheetに自動記録されるシステムです。
+生徒がスマートフォンやPCから簡単に回答でき、Google Spreadsheetに自動記録される。
 
 ### 主な機能
 
-- 📋 **プルダウン式の氏名選択** - 登録済みの生徒名から選択
-- 📅 **月選択** - 4月〜翌年3月の12ヶ月分
-- 📊 **モチベーション評価** - -2〜+2の5段階評価
-- ✏️ **自由記述** - モチベーション変動の要因を記録
-- 📱 **レスポンシブ対応** - スマホ・タブレット・PC対応
+- **プルダウン式の氏名選択** - 登録済みの生徒名から選択
+- **月選択** - 4月〜翌年3月の12ヶ月分
+- **モチベーション評価** - -2〜+2の5段階評価
+- **自由記述** - モチベーション変動の要因を記録
+- **レスポンシブ対応** - スマホ・タブレット・PC対応
 
 ## システムアーキテクチャ
 
@@ -50,11 +50,6 @@ flowchart TB
     JS -->|"7. POST: 回答送信"| doPost
     doPost -->|"8. 該当セルに書き込み"| MainSheet
 
-    style Frontend fill:#e3f2fd,stroke:#1565c0
-    style GAS fill:#fff3e0,stroke:#ef6c00
-    style Spreadsheet fill:#e8f5e9,stroke:#2e7d32
-    style Hosting fill:#fce4ec,stroke:#c2185b
-    style User fill:#f3e5f5,stroke:#7b1fa2
 ```
 
 ## ファイル構成
@@ -92,7 +87,7 @@ flowchart TB
 | バックエンド | Google Apps Script |
 | データベース | Google Spreadsheet |
 | 通信 | JSONP (GET), Fetch API (POST) |
-| ホスティング | GitHub Pages / Vercel / Netlify |
+| ホスティング | GitHub Pages |
 
 ## セットアップ
 
@@ -115,7 +110,7 @@ flowchart TB
 
 ### 4. 公開
 
-GitHub Pages、Vercel、Netlifyなどにデプロイ。
+適当な場所にデプロイ。
 
 ## ライセンス
 
