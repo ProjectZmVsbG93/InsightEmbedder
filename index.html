@@ -11,6 +11,8 @@
     href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 </head>
 
 <body>
@@ -37,6 +39,14 @@
             <select id="student-name" class="form-select" required>
               <option value="">読み込み中...</option>
             </select>
+          </div>
+
+          <!-- モチベーション推移グラフ -->
+          <div class="form-group" id="chart-container" style="display: none;">
+            <label class="form-label">これまでのモチベーション推移</label>
+            <div class="chart-wrapper">
+              <canvas id="motivation-chart"></canvas>
+            </div>
           </div>
 
           <!-- 月選択 -->

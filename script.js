@@ -6,7 +6,7 @@
 // 設定
 // ============================================
 // ↓ GASのウェブアプリURLをここに貼り付け
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbx_v_p0O2u2GrSRT21dTuWhEycuC-IESISTngX6IkYaKqZyzC5G31QNDkFKvG5Se5z1/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbxtl8ahmxiRCQYRa6V2nIvtUswsXhv9nc3qjrEN3N-Uro9ecp_GIXvl77R4iBPQRDxu/exec';
 
 // ============================================
 // DOM要素
@@ -19,6 +19,9 @@ const submitBtn = document.getElementById('submit-btn');
 const btnText = submitBtn.querySelector('.btn-text');
 const btnLoading = submitBtn.querySelector('.btn-loading');
 const resultMessage = document.getElementById('result-message');
+const chartContainer = document.getElementById('chart-container');
+const chartCanvas = document.getElementById('motivation-chart');
+let motivationChart = null;
 
 // ============================================
 // 初期化
@@ -75,6 +78,180 @@ function loadStudents() {
   };
 
   document.body.appendChild(script);
+}
+
+/**
+ * 氏名変更時にモチベーション履歴を取得
+ */
+studentSelect.addEventListener('change', () => {
+  const name = studentSelect.value;
+  if (!name) {
+    chartContainer.style.display = 'none';
+    if (motivationChart) {
+      motivationChart.destroy();
+      motivationChart = null;
+    }
+    return;
+  }
+  loadHistory(name);
+});
+
+/**
+ * モチベーション履歴を読み込む（JSONP方式）
+ */
+function loadHistory(name) {
+  const callbackName = 'historyCallback_' + Date.now();
+
+  window[callbackName] = function(data) {
+    delete window[callbackName];
+    document.body.removeChild(script);
+
+    if (data.error || !data.success) {
+      chartContainer.style.display = 'none';
+      return;
+    }
+
+    renderChart(data.history);
+  };
+
+  const params = new URLSearchParams({
+    action: 'history',
+    callback: callbackName,
+    name: name
+  });
+
+  const script = document.createElement('script');
+  script.src = GAS_URL + '?' + params.toString();
+  script.onerror = function() {
+    delete window[callbackName];
+    document.body.removeChild(script);
+  };
+
+  document.body.appendChild(script);
+}
+
+/**
+ * グラフを描画
+ */
+function renderChart(history) {
+  if (!history) {
+    chartContainer.style.display = 'none';
+    return;
+  }
+
+  const months = ['4', '5', '6', '7', '8', '9', '10', '11', '12', '1', '2', '3'];
+  const labels = months.map(m => m + '月');
+  const dataPoints = months.map(m => history[m] !== undefined ? history[m] : null);
+
+  // データが全てnullなら非表示
+  if (dataPoints.every(v => v === null)) {
+    chartContainer.style.display = 'none';
+    return;
+  }
+
+  chartContainer.style.display = 'block';
+
+  if (motivationChart) {
+    motivationChart.destroy();
+  }
+
+  motivationChart = new Chart(chartCanvas, {
+    type: 'line',
+    plugins: [ChartDataLabels],
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'モチベーション',
+        data: dataPoints,
+        borderColor: '#0d2850',
+        backgroundColor: 'rgba(13, 40, 80, 0.05)',
+        borderWidth: 2,
+        pointBackgroundColor: '#0d2850',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        pointRadius: dataPoints.map(v => v === null ? 0 : 3.5),
+        pointHoverRadius: 7,
+        tension: 0.3,
+        fill: true,
+        spanGaps: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: {
+        padding: { top: 24, right: 8, bottom: 8, left: 8 }
+      },
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          color: '#0d2850',
+          font: {
+            family: '"Noto Serif JP", serif',
+            size: 11,
+            weight: 700
+          },
+          anchor: function(context) {
+            const value = context.dataset.data[context.dataIndex];
+            return value >= 0 ? 'end' : 'start';
+          },
+          align: function(context) {
+            const value = context.dataset.data[context.dataIndex];
+            return value >= 0 ? 'top' : 'bottom';
+          },
+          offset: 6,
+          formatter: function(value) {
+            if (value === null) return '';
+            return value > 0 ? '+' + value : value;
+          },
+          display: function(context) {
+            return context.dataset.data[context.dataIndex] !== null;
+          }
+        }
+      },
+      scales: {
+        y: {
+          min: -3,
+          max: 3,
+          ticks: {
+            stepSize: 1,
+            callback: function(value) {
+              if (Number.isInteger(value) && value >= -2 && value <= 2) {
+                return value > 0 ? '+' + value : String(value);
+              }
+              return '';
+            },
+            font: {
+              family: '"Noto Serif JP", serif',
+              size: 12
+            },
+            color: '#0d2850',
+            padding: 8
+          },
+          grid: {
+            color: function(context) {
+              return context.tick.value === 0 ? 'rgba(13, 40, 80, 0.4)' : 'rgba(13, 40, 80, 0.08)';
+            },
+            lineWidth: function(context) {
+              return context.tick.value === 0 ? 1.5 : 1;
+            }
+          },
+          border: { display: false }
+        },
+        x: {
+          ticks: {
+            font: {
+              family: '"Noto Serif JP", serif',
+              size: 11
+            },
+            color: '#0d2850'
+          },
+          grid: { display: false },
+          border: { display: false }
+        }
+      }
+    }
+  });
 }
 
 /**

@@ -202,6 +202,23 @@ a:hover {
 }
 
 /* ============================================
+   グラフ
+   ============================================ */
+.chart-wrapper {
+  background-color: #fff;
+  border: 1px solid #e0e4ea;
+  border-radius: 0.4rem;
+  padding: 1.6rem;
+  position: relative;
+  max-height: 28rem;
+}
+
+.chart-wrapper canvas {
+  width: 100% !important;
+  max-height: 24rem;
+}
+
+/* ============================================
    モチベーション選択
    ============================================ */
 .motivation-selector {
