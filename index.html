@@ -12,7 +12,8 @@
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 </head>
 
 <body>
@@ -72,7 +73,8 @@
           <!-- モチベーション選択 -->
           <div class="form-group">
             <label class="form-label">モチベーション</label>
-            <p class="form-hint">英語学習に対する意欲を選択してください</p>
+            <p class="form-hint">各月における、<span
+                style="font-weight: 500; text-decoration: underline;">「英語学習に対するやる気の高さ」</span>を5段階で選んでください</p>
             <div class="motivation-selector">
               <input type="radio" name="motivation" id="motivation--2" value="-2" required>
               <label for="motivation--2" class="motivation-option motivation--negative-2">
@@ -108,9 +110,14 @@
 
           <!-- 変動原因 -->
           <div class="form-group">
-            <label class="form-label" for="reason">モチベーション変動の原因（任意）</label>
-            <p class="form-hint">この月にモチベーションが変わった理由があれば教えてください</p>
-            <textarea id="reason" class="form-textarea" rows="4" placeholder="例：テストの結果が良かった、部活が忙しくなった、など"></textarea>
+            <label class="form-label" for="reason">モチベーション変動の原因</label>
+            <p class="form-hint">
+              各月において、<span style="font-weight: 500; text-decoration: underline;">英語学習に関して</span>、「どのような出来事があったか」、<span
+                style="font-weight: 500; text-decoration: underline;">「何がやる気に影響を与えたか」</span>を振り返り、書き出してください。<span
+                style="font-weight: 500; text-decoration: underline;">特にやる気を左右した出来事について、できるだけ詳しく書いてください</span>
+            </p>
+            <textarea id="reason" class="form-textarea" rows="4"
+              placeholder="例：テストの結果、学校行事、日々の授業、部活、塾や外部模試、友人関係など"></textarea>
           </div>
 
           <!-- 送信ボタン -->
