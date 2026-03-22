@@ -210,12 +210,12 @@ a:hover {
   border-radius: 0.4rem;
   padding: 1.6rem;
   position: relative;
-  max-height: 28rem;
+  height: 250px;
 }
 
 .chart-wrapper canvas {
   width: 100% !important;
-  max-height: 24rem;
+  height: 100% !important;
 }
 
 /* ============================================
@@ -513,5 +513,10 @@ a:hover {
 
   .btn:before {
     translate: .4rem .4rem;
+  }
+
+  .chart-wrapper {
+    height: 200px;
+    padding: 0.8rem;
   }
 }

@@ -155,6 +155,12 @@ function renderChart(history) {
     motivationChart.destroy();
   }
 
+  // モバイル判定
+  const isMobile = window.innerWidth <= 767;
+  const fontSize = isMobile ? 9 : 12;
+  const labelFontSize = isMobile ? 9 : 11;
+  const pointSize = isMobile ? 2.5 : 3.5;
+
   motivationChart = new Chart(chartCanvas, {
     type: 'line',
     plugins: [ChartDataLabels],
@@ -169,8 +175,8 @@ function renderChart(history) {
         pointBackgroundColor: '#0d2850',
         pointBorderColor: '#fff',
         pointBorderWidth: 2,
-        pointRadius: dataPoints.map(v => v === null ? 0 : 3.5),
-        pointHoverRadius: 7,
+        pointRadius: dataPoints.map(v => v === null ? 0 : pointSize),
+        pointHoverRadius: pointSize + 2,
         tension: 0.3,
         fill: true,
         spanGaps: true
@@ -180,7 +186,7 @@ function renderChart(history) {
       responsive: true,
       maintainAspectRatio: false,
       layout: {
-        padding: { top: 24, right: 8, bottom: 8, left: 8 }
+        padding: { top: isMobile ? 16 : 24, right: 4, bottom: isMobile ? 4 : 8, left: 4 }
       },
       plugins: {
         legend: { display: false },
@@ -188,7 +194,7 @@ function renderChart(history) {
           color: '#0d2850',
           font: {
             family: '"Noto Serif JP", serif',
-            size: 11,
+            size: labelFontSize,
             weight: 700
           },
           anchor: function(context) {
@@ -223,7 +229,7 @@ function renderChart(history) {
             },
             font: {
               family: '"Noto Serif JP", serif',
-              size: 12
+              size: fontSize
             },
             color: '#0d2850',
             padding: 8
@@ -242,7 +248,7 @@ function renderChart(history) {
           ticks: {
             font: {
               family: '"Noto Serif JP", serif',
-              size: 11
+              size: isMobile ? 9 : 11
             },
             color: '#0d2850'
           },
