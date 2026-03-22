@@ -6,7 +6,7 @@
 // 設定
 // ============================================
 // ↓ GASのウェブアプリURLをここに貼り付け
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbxtl8ahmxiRCQYRa6V2nIvtUswsXhv9nc3qjrEN3N-Uro9ecp_GIXvl77R4iBPQRDxu/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbyK0RWiTSelOCBT_8jGrLXDWM3FsgcYUov_l4l1-PX0kwfe7F2g6B23_YMU127isdxP/exec';
 
 // ============================================
 // DOM要素
@@ -22,6 +22,7 @@ const resultMessage = document.getElementById('result-message');
 const chartContainer = document.getElementById('chart-container');
 const chartCanvas = document.getElementById('motivation-chart');
 let motivationChart = null;
+let cachedHistory = null; // 選択中の生徒の履歴をキャッシュ
 
 // ============================================
 // 初期化
@@ -85,6 +86,7 @@ function loadStudents() {
  */
 studentSelect.addEventListener('change', () => {
   const name = studentSelect.value;
+  cachedHistory = null;
   if (!name) {
     chartContainer.style.display = 'none';
     if (motivationChart) {
@@ -102,7 +104,7 @@ studentSelect.addEventListener('change', () => {
 function loadHistory(name) {
   const callbackName = 'historyCallback_' + Date.now();
 
-  window[callbackName] = function(data) {
+  window[callbackName] = function (data) {
     delete window[callbackName];
     document.body.removeChild(script);
 
@@ -111,6 +113,7 @@ function loadHistory(name) {
       return;
     }
 
+    cachedHistory = data.history;
     renderChart(data.history);
   };
 
@@ -122,7 +125,7 @@ function loadHistory(name) {
 
   const script = document.createElement('script');
   script.src = GAS_URL + '?' + params.toString();
-  script.onerror = function() {
+  script.onerror = function () {
     delete window[callbackName];
     document.body.removeChild(script);
   };
@@ -197,20 +200,20 @@ function renderChart(history) {
             size: labelFontSize,
             weight: 700
           },
-          anchor: function(context) {
+          anchor: function (context) {
             const value = context.dataset.data[context.dataIndex];
             return value >= 0 ? 'end' : 'start';
           },
-          align: function(context) {
+          align: function (context) {
             const value = context.dataset.data[context.dataIndex];
             return value >= 0 ? 'top' : 'bottom';
           },
           offset: 6,
-          formatter: function(value) {
+          formatter: function (value) {
             if (value === null) return '';
             return value > 0 ? '+' + value : value;
           },
-          display: function(context) {
+          display: function (context) {
             return context.dataset.data[context.dataIndex] !== null;
           }
         }
@@ -221,7 +224,7 @@ function renderChart(history) {
           max: 3,
           ticks: {
             stepSize: 1,
-            callback: function(value) {
+            callback: function (value) {
               if (Number.isInteger(value) && value >= -2 && value <= 2) {
                 return value > 0 ? '+' + value : String(value);
               }
@@ -235,10 +238,10 @@ function renderChart(history) {
             padding: 8
           },
           grid: {
-            color: function(context) {
+            color: function (context) {
               return context.tick.value === 0 ? 'rgba(13, 40, 80, 0.4)' : 'rgba(13, 40, 80, 0.08)';
             },
-            lineWidth: function(context) {
+            lineWidth: function (context) {
               return context.tick.value === 0 ? 1.5 : 1;
             }
           },
@@ -298,6 +301,16 @@ form.addEventListener('submit', async (e) => {
 
   const motivation = parseInt(motivationEl.value, 10);
 
+  // 既存データがある場合は上書き確認
+  if (cachedHistory && cachedHistory[month] !== null && cachedHistory[month] !== undefined) {
+    const monthLabel = month + '月';
+    const existingVal = cachedHistory[month];
+    const confirmed = confirm(
+      `${monthLabel}にはすでにデータ（${existingVal > 0 ? '+' : ''}${existingVal}）が記録されています。\n上書きしますか？`
+    );
+    if (!confirmed) return;
+  }
+
   // 送信中の表示
   setLoading(true);
   hideMessage();
@@ -319,6 +332,11 @@ form.addEventListener('submit', async (e) => {
 
     // no-corsモードではレスポンスが読めないため、成功とみなす
     showMessage(`回答を送信しました！`, 'success');
+
+    // キャッシュ更新
+    if (cachedHistory) {
+      cachedHistory[month] = motivation;
+    }
 
     // フォームリセット
     form.reset();
